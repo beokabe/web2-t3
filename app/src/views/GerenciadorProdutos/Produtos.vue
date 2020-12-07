@@ -193,8 +193,8 @@ export default {
 
     salvar() {
 
-      if (!this.produto.id || !this.produto.descricao || !this.produto.idadePermitida
-          || !this.produto.quantidadeEstoque || !this.produto.precoCompra) {
+      if (!this.produto.descricao || !this.produto.idadePermitida || !this.produto.quantidadeEstoque
+          || !this.produto.precoCompra || !this.produto.precoVendaFisica || !this.produto.precoVendaJuridica) {
         alert("Preencha todos os campos obrigatórios!")
         this.clonarProduto(this.produto, this.aux);
         return;

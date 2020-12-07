@@ -100,7 +100,7 @@ public class ProdutoService {
         }
 
         if (Objects.nonNull(produto.getPrecoVendaJuridica())) {
-            buscaProduto.setPrecoVendaFisica(produto.getPrecoVendaJuridica());
+            buscaProduto.setPrecoVendaJuridica(produto.getPrecoVendaJuridica());
         }
 
         return produtoRepository.save(buscaProduto);
