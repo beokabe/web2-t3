@@ -33,7 +33,9 @@
                 <th>RG</th>
                 <th>CPF</th>
                 <th>CNPJ</th>
-                <th v-show="usuario.isAdministrador">Ações</th>
+                <th>Responsável</th>
+
+              <th v-show="usuario.isAdministrador">Ações</th>
             </tr>
             </thead>
             <tbody>
@@ -46,6 +48,7 @@
                 <td>{{ pessoa.rg || 'Não possui' }}</td>
                 <td>{{ pessoa.cpf || 'Não possui' }}</td>
                 <td>{{ pessoa.cnpj || 'Não possui' }}</td>
+                <td>{{ pessoa.responsavelId ? pessoa.responsavelId.nome : 'Não possui' }}</td>
 
               <td v-show="usuario.isAdministrador">
                     <a class="btn-action" data-toggle="modal" data-target="#editarPessoa"
@@ -88,6 +91,15 @@
                             <input type="text" class="form-control" id="nome"
                                    name="nome"  v-model="pessoa.nome">
                         </div>
+
+                      <div class="form-group">
+                        <label>Responsável</label>
+                        <select class="form-control" v-model="selected" @change="setarResponsavel(pessoa)">
+                        <option selected="true" value="">Escolha um responsável</option>
+                        <option v-for="option in pessoasAcimaDeDezoito" :key="option" :value="option" >{{ option.nome }}</option>
+                      </select>
+                      </div>
+
                         <div class="form-group">
                             <label for="apelido">Apelido</label>
                             <input type="text" class="form-control" id="apelido"
@@ -153,12 +165,13 @@
                 pessoas: [],
                 pessoasFisicas: [],
                 pessoasJuridicas: [],
-
-                pessoa: this.criarPessoaVazio()
+                pessoasAcimaDeDezoito: [],
+                pessoa: this.criarPessoaVazio(),
             }
         },
         created() {
             this.carregarPessoas();
+            this.carregarPessoasResponsaveis()
         },
         methods: {
           carregarPessoas() {
@@ -185,9 +198,22 @@
                 });
           },
 
+          carregarPessoasResponsaveis() {
+            crud.getItens("pessoa/responsaveis/" + this.usuario.id)
+                .then(response => this.pessoasAcimaDeDezoito = response.data)
+                .catch(function (error) {
+                  console.log(error.status);
+                });
+          },
+
             atribuirPessoa(pessoa, tipo = '') {
               this.pessoa = pessoa;
               this.aux = { ...pessoa};
+
+              if (this.selected) {
+                this.selected = pessoa.responsavelId;
+                this.pessoa.responsavelId.id = this.selected;
+              }
 
               if (tipo === 'pf') {
                 this.pessoa.tipo = 'FISICA';
@@ -204,7 +230,8 @@
             },
 
             salvar() {
-                if (!this.pessoa.nome && !this.pessoa.situacao) {
+              if (!this.pessoa.nome && !this.pessoa.situacao) {
+                console.log("entrou")
                   alert("Preencha todos os campos obrigatórios!")
 
                   if (this.pessoa.id) {
@@ -260,9 +287,18 @@
                 }
             },
 
+            setarResponsavel(pessoa) {
+              if (this.selected === '') {
+                return;
+              }
+
+              pessoa.responsavelId = this.selected;
+            },
+
             clonarPessoa(pessoaOriginal, cloneEstadoAnterior) {
                 pessoaOriginal.id = cloneEstadoAnterior.id;
                 pessoaOriginal.nome = cloneEstadoAnterior.nome;
+                pessoaOriginal.responsavelId = cloneEstadoAnterior.responsavelId,
                 pessoaOriginal.apelido = cloneEstadoAnterior.apelido;
                 pessoaOriginal.tipo = cloneEstadoAnterior.tipo;
                 pessoaOriginal.situacao = cloneEstadoAnterior.situacao;
@@ -291,6 +327,7 @@
                     id: '',
                     tipo: '',
                     nome: '',
+                    responsavelId: null,
                     apelido: '',
                     situacao: 'ATIVO',
                     dataNascimento: '',
@@ -298,7 +335,7 @@
                     cpf: '',
                     cnpj: ''
                 }
-            }
+            },
         }
     }
 

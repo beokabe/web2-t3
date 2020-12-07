@@ -99,6 +99,18 @@ public class PessoaService {
         return pessoaRepository.findById(id);
     }
 
+    public List<?> buscarResponsaveis(Long id) {
+
+        Stream<?> busca;
+
+        busca = pessoaRepository.findAll().stream()
+                .filter(pessoa -> filtroService.filtrarPessoasMaioresDeIdade(pessoa, id))
+                .sorted(Comparator.comparing(Pessoa::getId));
+
+
+        return busca.collect(Collectors.toList());
+    }
+
     public void deletar(Long id) {
         Pessoa buscaPessoa = pessoaRepository.findById(id).get();
 
@@ -118,6 +130,10 @@ public class PessoaService {
 
         if (Objects.nonNull(pessoa.getNome())) {
             buscaPessoa.setNome(pessoa.getNome());
+        }
+
+        if (Objects.nonNull(pessoa.getResponsavelId())) {
+            buscaPessoa.setResponsavelId(pessoa.getResponsavelId());
         }
 
         if (Objects.nonNull(pessoa.getApelido())) {

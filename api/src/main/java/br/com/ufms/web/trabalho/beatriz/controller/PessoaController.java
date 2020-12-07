@@ -52,6 +52,16 @@ public class PessoaController {
         return new ResponseEntity(pessoaService.buscarPorId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/responsaveis/{id}")
+    @ResponseBody
+    public ResponseEntity<?> buscarResponsaveis(@PathVariable("id") Long id,
+                                                @RequestHeader("login") String login,
+                                                @RequestHeader("senha") String senha) {
+        loginService.loginComoUsuarioComum(login, senha);
+
+        return new ResponseEntity(pessoaService.buscarResponsaveis(id), HttpStatus.OK);
+    }
+
     @PostMapping
     @ResponseBody
     public ResponseEntity<?> inserir(@RequestBody PessoaPojo pessoa) {

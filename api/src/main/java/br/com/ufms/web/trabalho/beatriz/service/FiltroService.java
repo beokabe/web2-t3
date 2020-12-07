@@ -5,6 +5,8 @@ import br.com.ufms.web.trabalho.beatriz.entity.Produto;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 @Service
@@ -110,5 +112,13 @@ public class FiltroService {
         }
 
         return Objects.isNull(descricao) && Objects.isNull(precoMinimo) && Objects.isNull(precoMaximo);
+    }
+
+    public boolean filtrarPessoasMaioresDeIdade(Pessoa pessoa, Long id) {
+        if (Objects.nonNull(id) && Objects.nonNull(pessoa)) {
+            int idade = Period.between(pessoa.getDataNascimento(), LocalDate.now()).getYears();
+            return idade >= 18 && !pessoa.getId().equals(id);
+        }
+        return false;
     }
 }
