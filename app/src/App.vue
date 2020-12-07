@@ -11,22 +11,34 @@
 
 import Cabecalho from "./componentes/Generico/Cabecalho";
 import Rodape from "./componentes/Generico/Rodape";
+import router from "@/router";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 export default {
   name: 'App',
+
   components: {
     Cabecalho,
     Rodape
   },
-  created() {
 
+  created() {
+    this.redirecionarUsuarioSeNaoEstiverLogado();
   },
-  data() {
-    return {
-      isLogado: true
+
+  computed: {
+    isLogado: function () {
+      return !!sessionStorage.getItem('isLogado');
+    },
+  },
+
+  methods: {
+    redirecionarUsuarioSeNaoEstiverLogado() {
+      if(!sessionStorage.getItem('isLogado')) {
+          router.push('/');
+      }
     }
   }
 }

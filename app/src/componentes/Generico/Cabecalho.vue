@@ -7,7 +7,7 @@
                 <nav class="top-nav">
                     <ul>
                         <li>
-                            <router-link to="/">Home</router-link>
+                            <router-link to="/Home">Home</router-link>
                         </li>
                         <li>
                             <router-link to="/Administrador/Produtos">Gerenciar Produtos</router-link>

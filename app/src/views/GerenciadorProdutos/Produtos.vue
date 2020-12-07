@@ -86,8 +86,8 @@
 
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" ng-show="produto.id" >Editar Produto</h4>
-            <h4 class="modal-title" ng-show="!produto.id" >Criar Produto</h4>
+            <h4 class="modal-title" v-show="produto.id" >Editar Produto</h4>
+            <h4 class="modal-title" v-show="!produto.id" >Criar Produto</h4>
             <button type="button" class="close" data-dismiss="modal" @click="limparProduto()">&times;
             </button>
           </div>
@@ -159,7 +159,7 @@ export default {
   data() {
     return {
       aux: {},
-      usuario: {},
+      usuario: JSON.parse(sessionStorage.getItem('usuario')),
       produtos: [],
       produto: this.criarProdutoVazio(),
     }
@@ -167,7 +167,6 @@ export default {
 
   created() {
     this.carregarProdutos();
-    this.carregarUsuario();
   },
 
   methods: {
@@ -227,10 +226,10 @@ export default {
 
     filtrarPorValor(event) {
 
-      var e = document.getElementById("filtro-produto");
-      var selected = e.options[e.selectedIndex].value;
-      var url;
-      var aux = '';
+      let e = document.getElementById("filtro-produto");
+      let selected = e.options[e.selectedIndex].value;
+      let url;
+      let aux = '';
 
       if (event.target.value === 'maior') {
         aux = 'min=100'
@@ -262,10 +261,10 @@ export default {
 
     filtrarPorDescricao(event) {
 
-      var e = document.getElementById("filtro");
-      var selected = e.options[e.selectedIndex].text;
-      var url;
-      var aux = '';
+      let e = document.getElementById("filtro");
+      let selected = e.options[e.selectedIndex].text;
+      let url;
+      let aux = '';
 
       if (selected === 'maior') {
         aux = 'min=100'
@@ -318,14 +317,6 @@ export default {
         precoVenda: ''
       }
     },
-
-    carregarUsuario() {
-      crud.buscarUsuario(4)
-        .then(response => this.usuario = response.data)
-          .catch(function (error) {
-            console.log(error);
-          });
-    }
   }
 }
 
@@ -369,6 +360,10 @@ export default {
       position: relative;
       left: 15px;
       margin: 20px 0;
+    }
+
+    .actions .btn {
+      color: white;
     }
 
     .btn-action {

@@ -1,5 +1,6 @@
 package br.com.ufms.web.trabalho.beatriz.controller;
 
+import br.com.ufms.web.trabalho.beatriz.dto.LoginDTO;
 import br.com.ufms.web.trabalho.beatriz.entity.Usuario;
 import br.com.ufms.web.trabalho.beatriz.service.LoginService;
 import br.com.ufms.web.trabalho.beatriz.service.UsuarioService;
@@ -37,6 +38,12 @@ public class UsuarioController {
         loginService.loginComoUsuarioComum(login, senha);
 
         return new ResponseEntity(usuarioService.buscarId(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/logar")
+    @ResponseBody
+    public ResponseEntity<?> logar(@RequestBody LoginDTO login) {
+        return new ResponseEntity(loginService.loginComoUsuarioComumRetorna(login.getLogin(), login.getSenha()), HttpStatus.OK);
     }
 
     @PostMapping

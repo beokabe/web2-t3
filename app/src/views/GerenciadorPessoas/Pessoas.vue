@@ -145,10 +145,11 @@
 
     export default {
         name: "pessoas",
-        data() {
+
+      data() {
             return {
                 aux: {},
-                usuario: {},
+                usuario: JSON.parse(sessionStorage.getItem('usuario')),
                 pessoas: [],
                 pessoasFisicas: [],
                 pessoasJuridicas: [],
@@ -158,7 +159,6 @@
         },
         created() {
             this.carregarPessoas();
-            this.carregarUsuario();
         },
         methods: {
           carregarPessoas() {
@@ -286,14 +286,6 @@
                 this.pessoa = this.criarPessoaVazio()
             },
 
-            carregarUsuario() {
-              crud.buscarUsuario(4)
-                  .then(response => this.usuario = response.data)
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-            },
-
             criarPessoaVazio() {
                 return {
                     id: '',
@@ -362,6 +354,10 @@
       position: relative;
       left: 20px;
       margin: 20px 0;
+    }
+
+    .actions .btn {
+      color: white;
     }
 
     .btn-action {

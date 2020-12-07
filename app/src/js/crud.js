@@ -16,17 +16,16 @@ var API_URL = "http://localhost:8081/api/";
         if (data) {
             requisicao.data = data;
         }
+
         return requisicao;
     }
 
-    async function buscarUsuario(id) {
-        var config = criarConfig(API_URL + 'usuario/' + id);
-
-        return axios(config);
+    async function buscarUsuario(usuario) {
+        return axios.put(API_URL + 'usuario/logar', usuario);
     }
 
     async function getItens(tipo, url) {
-        var config;
+        let config;
 
         if (url) {
             config = criarConfig(url);
@@ -38,7 +37,7 @@ var API_URL = "http://localhost:8081/api/";
     }
 
     async function getItem(tipo, id) {
-        var config = criarConfig(API_URL + tipo + '/' + id);
+        let config = criarConfig(API_URL + tipo + '/' + id);
 
         return axios(config);
     }
@@ -46,19 +45,19 @@ var API_URL = "http://localhost:8081/api/";
     async function postItem(tipo, item) {
         if (!tipo || !item) return;
 
-        var config = criarConfig(API_URL + tipo, 'post', item);
+        let config = criarConfig(API_URL + tipo, 'post', item);
 
         return axios(config);
     }
 
     async function deletar(tipo, id) {
-        var config = criarConfig(API_URL + tipo + '/' + id, 'delete');
+        let config = criarConfig(API_URL + tipo + '/' + id, 'delete');
 
         return axios(config);
     }
 
     async function updateItem(tipo, item) {
-        var config = criarConfig(API_URL + tipo + "/" + item.id, 'put', item);
+        let config = criarConfig(API_URL + tipo + "/" + item.id, 'put', item);
 
         return axios(config);
     }
