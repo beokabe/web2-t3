@@ -3,13 +3,15 @@ import axios from 'axios'
 var API_URL = "http://localhost:8081/api/";
 
     function criarConfig(url, metodo, data) {
+        let usuario = JSON.parse(sessionStorage.getItem('usuario'));
+
         let requisicao = {
             method: metodo ? metodo : 'get',
             url: url,
             crossDomain: true,
             headers: {
-                'login': 'beatriz',
-                'senha': '123'
+                'login': usuario.login,
+                'senha': usuario.senha
             }
         };
 
