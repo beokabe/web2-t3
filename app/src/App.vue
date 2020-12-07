@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Cabecalho titulo="Seja bem-vindo" v-show="isLogado"/>
+    <Cabecalho titulo="Painel do Usuário" v-show="isLogado"/>
     <h1 id="loginTitulo" v-show="!isLogado">Faça o seu login</h1>
       <router-view></router-view>
     <Rodape />
