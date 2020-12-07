@@ -81,41 +81,41 @@
                         <div class="form-group" v-show="pessoa.id">
                             <label for="id">ID</label>
                             <input type="text" class="form-control" id="id"
-                                   name="id" required v-model="pessoa.id" disabled>
+                                   name="id"  v-model="pessoa.id" disabled>
                         </div>
                         <div class="form-group">
                             <label for="nome">Nome</label>
                             <input type="text" class="form-control" id="nome"
-                                   name="nome" required v-model="pessoa.nome">
+                                   name="nome"  v-model="pessoa.nome">
                         </div>
                         <div class="form-group">
                             <label for="apelido">Apelido</label>
                             <input type="text" class="form-control" id="apelido"
-                                   name="apelido" required v-model="pessoa.apelido">
+                                   name="apelido"  v-model="pessoa.apelido">
                         </div>
 
                         <div class="form-group">
                           <label for="situacao">Situação</label>
                           <input type="text" class="form-control" id="situacao"
-                                 name="situacao" required v-model="pessoa.situacao">
+                                 name="situacao"  v-model="pessoa.situacao">
                         </div>
 
                       <div class="form-group">
                         <label for="dataNascimento">Data de Nascimento</label>
                         <input type="date" class="form-control" id="dataNascimento"
-                               name="dataNascimento" required v-model="pessoa.dataNascimento">
+                               name="dataNascimento"  v-model="pessoa.dataNascimento">
                       </div>
 
                       <div class="form-group" v-if="pessoa.tipo==='FISICA'">
                         <label for="rg">RG</label>
                         <input type="text" class="form-control" id="rg"
-                               name="rg" required v-model="pessoa.rg">
+                               name="rg"  v-model="pessoa.rg">
                       </div>
 
                       <div class="form-group" v-if="pessoa.tipo==='FISICA'">
                         <label for="cpf">CPF</label>
                         <input type="text" class="form-control" id="cpf"
-                               name="cpf" required v-model="pessoa.cpf">
+                               name="cpf"  v-model="pessoa.cpf">
                       </div>
 
                       <div class="form-group" v-if="pessoa.tipo==='JURIDICA'">

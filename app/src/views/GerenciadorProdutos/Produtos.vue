@@ -97,38 +97,38 @@
               <div class="form-group" v-show="produto.id">
                 <label for="id">ID</label>
                 <input type="text" class="form-control" id="id"
-                       name="id" required v-model="produto.id" disabled>
+                       name="id"  v-model="produto.id" disabled>
               </div>
               <div class="form-group">
                 <label for="descricao">Descrição</label>
                 <input type="text" class="form-control" id="descricao"
-                       name="descricao" required v-model="produto.descricao">
+                       name="descricao"  v-model="produto.descricao">
               </div>
               <div class="form-group">
                 <label for="qtdEstoque">Quantidade</label>
                 <input type="text" class="form-control" id="qtdEstoque"
-                       name="qtdEstoque" required v-model="produto.quantidadeEstoque">
+                       name="qtdEstoque"  v-model="produto.quantidadeEstoque">
               </div>
               <div class="form-group">
                 <label for="idadePermitida">Idade Permitida</label>
                 <input type="number" class="form-control" id="idadePermitida"
-                       name="idadePermitida" required v-model="produto.idadePermitida">
+                       name="idadePermitida"  v-model="produto.idadePermitida">
               </div>
               <div class="form-group">
                 <label for="precoCompra">Preço da Compra</label>
                 <input type="number" class="form-control" id="precoCompra"
-                       name="precoCompra" required v-model="produto.precoCompra">
+                       name="precoCompra"  v-model="produto.precoCompra">
               </div>
 
               <div class="form-group" v-show="!produto.id || usuario.isAdministrador">
                 <label for="precoVendaFisica">Preço da Venda Física</label>
                 <input type="number" class="form-control" id="precoVendaFisica"
-                       name="precoVendaFisica" required v-model="produto.precoVendaFisica">
+                       name="precoVendaFisica"  v-model="produto.precoVendaFisica">
               </div>
               <div class="form-group" v-show="!produto.id || usuario.isAdministrador">
                 <label for="precoVendaJuridica">Preço da Venda Jurídica</label>
                 <input type="number" class="form-control" id="precoVendaJuridica"
-                       name="precoVendaJuridica" required v-model="produto.precoVendaJuridica">
+                       name="precoVendaJuridica"  v-model="produto.precoVendaJuridica">
               </div>
               <div>
                 <button @click="salvar()" class="btn btn-primary" data-dismiss="modal">
