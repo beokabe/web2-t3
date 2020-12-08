@@ -289,7 +289,7 @@
 
             setarResponsavel(pessoa) {
               if (this.selected === '') {
-                return;
+                this.selected = null;
               }
 
               pessoa.responsavelId = this.selected;
