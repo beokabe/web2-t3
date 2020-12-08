@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class FiltroService {
@@ -114,10 +115,10 @@ public class FiltroService {
         return Objects.isNull(descricao) && Objects.isNull(precoMinimo) && Objects.isNull(precoMaximo);
     }
 
-    public boolean filtrarPessoasMaioresDeIdade(Pessoa pessoa, Long id) {
-        if (Objects.nonNull(id) && Objects.nonNull(pessoa)) {
+    public boolean filtrarPessoasMaioresDeIdade(Pessoa pessoa, Optional<Pessoa> excecao) {
+        if (Objects.nonNull(excecao) && Objects.nonNull(pessoa)) {
             int idade = Period.between(pessoa.getDataNascimento(), LocalDate.now()).getYears();
-            return idade >= 18 && !pessoa.getId().equals(id);
+            return idade >= 18 && !pessoa.equals(excecao);
         }
         return false;
     }

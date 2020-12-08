@@ -103,8 +103,10 @@ public class PessoaService {
 
         Stream<?> busca;
 
+        Optional<Pessoa> excecao = pessoaRepository.findById(id);
+
         busca = pessoaRepository.findAll().stream()
-                .filter(pessoa -> filtroService.filtrarPessoasMaioresDeIdade(pessoa, id))
+                .filter(pessoa -> filtroService.filtrarPessoasMaioresDeIdade(pessoa, excecao))
                 .sorted(Comparator.comparing(Pessoa::getId));
 
 
@@ -123,6 +125,7 @@ public class PessoaService {
 
     public Pessoa atualizar(Long id, Pessoa pessoa) {
         Pessoa buscaPessoa = pessoaRepository.findById(id).get();
+        int idade = Period.between(buscaPessoa.getDataNascimento(), LocalDate.now()).getYears();
 
         if (Objects.isNull(buscaPessoa)) {
             throw new RuntimeException("Registro não encontrado.", null);
@@ -132,8 +135,10 @@ public class PessoaService {
             buscaPessoa.setNome(pessoa.getNome());
         }
 
-        if (Objects.nonNull(pessoa.getResponsavelId())) {
+        if (Objects.nonNull(pessoa.getResponsavelId()) && !pessoa.getResponsavelId().getId().equals(buscaPessoa.getId())) {
             buscaPessoa.setResponsavelId(pessoa.getResponsavelId());
+        } else if (Objects.isNull(pessoa.getResponsavelId()) && idade >= 18) {
+            buscaPessoa.setResponsavelId(null);
         }
 
         if (Objects.nonNull(pessoa.getApelido())) {
